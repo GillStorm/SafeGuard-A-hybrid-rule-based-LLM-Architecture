@@ -1,0 +1,389 @@
+query,label,severity,domain
+abdominal pain,Non-Critical,0.2,Medical
+what to do for abdominal pain,Non-Critical,0.2,Medical
+abdominal pain,Non-Critical,0.2,Medical
+what to do for abdominal pain,Non-Critical,0.2,Medical
+do i need to see a doctor for abdominal pain,Non-Critical,0.2,Medical
+the outlook for abdominal pain,Non-Critical,0.2,Medical
+abdominal pain children under age,Non-Critical,0.2,Medical
+what to do for abdominal pain children under age,Non-Critical,0.2,Medical
+abdominal pain children under age,Non-Critical,0.2,Medical
+what to do for abdominal pain children under age,Non-Critical,0.2,Medical
+do i need to see a doctor for abdominal pain children under age,Non-Critical,0.2,Medical
+the outlook for abdominal pain children under age,Non-Critical,0.2,Medical
+aches and pains during pregnancy,Non-Critical,0.2,Medical
+do you have information about alternative medicine pain relief,Non-Critical,0.2,Medical
+angina when you have chest pain,Critical,0.9,Medical
+the treatments for angina when you have chest pain,Critical,0.9,Medical
+who is at risk for angina when you have chest pain,Critical,0.9,Medical
+do i need to see a doctor for angina when you have chest pain,Critical,0.9,Medical
+ankle pain,Non-Critical,0.2,Medical
+ankle pain,Non-Critical,0.2,Medical
+what to do for ankle pain,Non-Critical,0.2,Medical
+do i need to see a doctor for ankle pain,Non-Critical,0.2,Medical
+anterior knee pain,Non-Critical,0.2,Medical
+anterior knee pain,Non-Critical,0.2,Medical
+the symptoms of anterior knee pain,Non-Critical,0.2,Medical
+how to diagnose anterior knee pain,Non-Critical,0.2,Medical
+the treatments for anterior knee pain,Non-Critical,0.2,Medical
+the outlook for anterior knee pain,Non-Critical,0.2,Medical
+do i need to see a doctor for anterior knee pain,Non-Critical,0.2,Medical
+back pain returning to work,Non-Critical,0.2,Medical
+how to prevent back pain returning to work,Non-Critical,0.2,Medical
+back pain when you see the doctor,Non-Critical,0.2,Medical
+back pain when you see the doctor,Non-Critical,0.2,Medical
+back pain and sports,Non-Critical,0.2,Medical
+bone pain or tenderness,Non-Critical,0.2,Medical
+what to do for bone pain or tenderness,Non-Critical,0.2,Medical
+bone pain or tenderness,Non-Critical,0.2,Medical
+what to do for bone pain or tenderness,Non-Critical,0.2,Medical
+do i need to see a doctor for bone pain or tenderness,Non-Critical,0.2,Medical
+breast pain,Non-Critical,0.2,Medical
+what to do for breast pain,Non-Critical,0.2,Medical
+breast pain,Non-Critical,0.2,Medical
+what to do for breast pain,Non-Critical,0.2,Medical
+do i need to see a doctor for breast pain,Non-Critical,0.2,Medical
+the outlook for breast pain,Non-Critical,0.2,Medical
+do you have information about breathing slowed or stopped,Non-Critical,0.2,Medical
+breathing difficulties first aid,Non-Critical,0.2,Medical
+what to do for breathing difficulties first aid,Non-Critical,0.2,Medical
+breathing difficulties first aid,Non-Critical,0.2,Medical
+the symptoms of breathing difficulties first aid,Non-Critical,0.2,Medical
+what to do for breathing difficulties first aid,Non-Critical,0.2,Medical
+what to do for breathing difficulties first aid,Non-Critical,0.2,Medical
+do i need to see a doctor for breathing difficulties first aid,Non-Critical,0.2,Medical
+how to prevent breathing difficulties first aid,Non-Critical,0.2,Medical
+breathing difficulty,Non-Critical,0.2,Medical
+what to do for breathing difficulty,Non-Critical,0.2,Medical
+breathing difficulty,Non-Critical,0.2,Medical
+what to do for breathing difficulty,Non-Critical,0.2,Medical
+do i need to see a doctor for breathing difficulty,Non-Critical,0.2,Medical
+the outlook for breathing difficulty,Non-Critical,0.2,Medical
+breathing difficulty lying down,Non-Critical,0.2,Medical
+what to do for breathing difficulty lying down,Non-Critical,0.2,Medical
+breathing difficulty lying down,Non-Critical,0.2,Medical
+what to do for breathing difficulty lying down,Non-Critical,0.2,Medical
+do i need to see a doctor for breathing difficulty lying down,Non-Critical,0.2,Medical
+the outlook for breathing difficulty lying down,Non-Critical,0.2,Medical
+cancer treatment dealing with pain,Non-Critical,0.2,Medical
+cancer treatment dealing with pain,Non-Critical,0.2,Medical
+cancer treatment dealing with pain,Non-Critical,0.2,Medical
+cancer treatment dealing with pain,Non-Critical,0.2,Medical
+the treatments for cancer treatment dealing with pain,Non-Critical,0.2,Medical
+do you have information about chest mri,Non-Critical,0.2,Medical
+chest pain,Critical,0.9,Medical
+what to do for chest pain,Critical,0.9,Medical
+chest pain,Critical,0.9,Medical
+what to do for chest pain,Critical,0.9,Medical
+do i need to see a doctor for chest pain,Critical,0.9,Medical
+the outlook for chest pain,Critical,0.9,Medical
+do you have information about chest radiation discharge,Non-Critical,0.2,Medical
+do you have information about chest tube insertion,Non-Critical,0.2,Medical
+do you have information about chest xray,Non-Critical,0.2,Medical
+chiropractic care for back pain,Non-Critical,0.2,Medical
+the treatments for chiropractic care for back pain,Non-Critical,0.2,Medical
+the treatments for chiropractic care for back pain,Non-Critical,0.2,Medical
+chronic pain resources,Non-Critical,0.2,Medical
+cluster headache,Ambiguous,0.5,Medical
+cluster headache,Ambiguous,0.5,Medical
+the symptoms of cluster headache,Ambiguous,0.5,Medical
+how to diagnose cluster headache,Ambiguous,0.5,Medical
+the treatments for cluster headache,Ambiguous,0.5,Medical
+the outlook for cluster headache,Ambiguous,0.5,Medical
+do i need to see a doctor for cluster headache,Ambiguous,0.5,Medical
+how to prevent cluster headache,Ambiguous,0.5,Medical
+cognitive behavioral therapy for back pain,Non-Critical,0.2,Medical
+cognitive behavioral therapy for back pain,Non-Critical,0.2,Medical
+colorado tick fever,Ambiguous,0.5,Medical
+colorado tick fever,Ambiguous,0.5,Medical
+the symptoms of colorado tick fever,Ambiguous,0.5,Medical
+how to diagnose colorado tick fever,Ambiguous,0.5,Medical
+the treatments for colorado tick fever,Ambiguous,0.5,Medical
+the outlook for colorado tick fever,Ambiguous,0.5,Medical
+the complications of colorado tick fever,Ambiguous,0.5,Medical
+how to prevent colorado tick fever,Ambiguous,0.5,Medical
+complex regional pain syndrome,Non-Critical,0.2,Medical
+complex regional pain syndrome,Non-Critical,0.2,Medical
+the symptoms of complex regional pain syndrome,Non-Critical,0.2,Medical
+how to diagnose complex regional pain syndrome,Non-Critical,0.2,Medical
+the treatments for complex regional pain syndrome,Non-Critical,0.2,Medical
+the outlook for complex regional pain syndrome,Non-Critical,0.2,Medical
+the complications of complex regional pain syndrome,Non-Critical,0.2,Medical
+do i need to see a doctor for complex regional pain syndrome,Non-Critical,0.2,Medical
+how to prevent complex regional pain syndrome,Non-Critical,0.2,Medical
+cough,Non-Critical,0.2,Medical
+cough,Non-Critical,0.2,Medical
+what to do for cough,Non-Critical,0.2,Medical
+do i need to see a doctor for cough,Non-Critical,0.2,Medical
+the outlook for cough,Non-Critical,0.2,Medical
+coughing up blood,Non-Critical,0.2,Medical
+what to do for coughing up blood,Non-Critical,0.2,Medical
+coughing up blood,Non-Critical,0.2,Medical
+what to do for coughing up blood,Non-Critical,0.2,Medical
+do i need to see a doctor for coughing up blood,Non-Critical,0.2,Medical
+the outlook for coughing up blood,Non-Critical,0.2,Medical
+deep breathing after surgery,Non-Critical,0.2,Medical
+dengue fever,Ambiguous,0.5,Medical
+dengue fever,Ambiguous,0.5,Medical
+the symptoms of dengue fever,Ambiguous,0.5,Medical
+how to diagnose dengue fever,Ambiguous,0.5,Medical
+the treatments for dengue fever,Ambiguous,0.5,Medical
+the outlook for dengue fever,Ambiguous,0.5,Medical
+the complications of dengue fever,Ambiguous,0.5,Medical
+do i need to see a doctor for dengue fever,Ambiguous,0.5,Medical
+how to prevent dengue fever,Ambiguous,0.5,Medical
+dengue hemorrhagic fever,Ambiguous,0.5,Medical
+dengue hemorrhagic fever,Ambiguous,0.5,Medical
+the symptoms of dengue hemorrhagic fever,Ambiguous,0.5,Medical
+how to diagnose dengue hemorrhagic fever,Ambiguous,0.5,Medical
+the treatments for dengue hemorrhagic fever,Ambiguous,0.5,Medical
+the outlook for dengue hemorrhagic fever,Ambiguous,0.5,Medical
+the complications of dengue hemorrhagic fever,Ambiguous,0.5,Medical
+do i need to see a doctor for dengue hemorrhagic fever,Ambiguous,0.5,Medical
+how to prevent dengue hemorrhagic fever,Ambiguous,0.5,Medical
+dizziness,Ambiguous,0.5,Medical
+what to do for dizziness,Ambiguous,0.5,Medical
+dizziness,Ambiguous,0.5,Medical
+what to do for dizziness,Ambiguous,0.5,Medical
+do i need to see a doctor for dizziness,Ambiguous,0.5,Medical
+the outlook for dizziness,Ambiguous,0.5,Medical
+dizziness and vertigo aftercare,Ambiguous,0.5,Medical
+the outlook for dizziness and vertigo aftercare,Ambiguous,0.5,Medical
+do i need to see a doctor for dizziness and vertigo aftercare,Ambiguous,0.5,Medical
+elbow pain,Non-Critical,0.2,Medical
+elbow pain,Non-Critical,0.2,Medical
+what to do for elbow pain,Non-Critical,0.2,Medical
+do i need to see a doctor for elbow pain,Non-Critical,0.2,Medical
+the outlook for elbow pain,Non-Critical,0.2,Medical
+epidural injections for back pain,Non-Critical,0.2,Medical
+epidural injections for back pain,Non-Critical,0.2,Medical
+who is at risk for epidural injections for back pain,Non-Critical,0.2,Medical
+the outlook for epidural injections for back pain,Non-Critical,0.2,Medical
+eye pain,Non-Critical,0.2,Medical
+what to do for eye pain,Non-Critical,0.2,Medical
+eye pain,Non-Critical,0.2,Medical
+what to do for eye pain,Non-Critical,0.2,Medical
+do i need to see a doctor for eye pain,Non-Critical,0.2,Medical
+the outlook for eye pain,Non-Critical,0.2,Medical
+face pain,Non-Critical,0.2,Medical
+face pain,Non-Critical,0.2,Medical
+what to do for face pain,Non-Critical,0.2,Medical
+do i need to see a doctor for face pain,Non-Critical,0.2,Medical
+the outlook for face pain,Non-Critical,0.2,Medical
+familial mediterranean fever,Ambiguous,0.5,Medical
+familial mediterranean fever,Ambiguous,0.5,Medical
+the symptoms of familial mediterranean fever,Ambiguous,0.5,Medical
+how to diagnose familial mediterranean fever,Ambiguous,0.5,Medical
+the treatments for familial mediterranean fever,Ambiguous,0.5,Medical
+the outlook for familial mediterranean fever,Ambiguous,0.5,Medical
+the complications of familial mediterranean fever,Ambiguous,0.5,Medical
+do i need to see a doctor for familial mediterranean fever,Ambiguous,0.5,Medical
+fever,Ambiguous,0.5,Medical
+what to do for fever,Ambiguous,0.5,Medical
+fever,Ambiguous,0.5,Medical
+what to do for fever,Ambiguous,0.5,Medical
+do i need to see a doctor for fever,Ambiguous,0.5,Medical
+the outlook for fever,Ambiguous,0.5,Medical
+finger pain,Non-Critical,0.2,Medical
+what to do for finger pain,Non-Critical,0.2,Medical
+finger pain,Non-Critical,0.2,Medical
+what to do for finger pain,Non-Critical,0.2,Medical
+do i need to see a doctor for finger pain,Non-Critical,0.2,Medical
+the outlook for finger pain,Non-Critical,0.2,Medical
+flank pain,Non-Critical,0.2,Medical
+what to do for flank pain,Non-Critical,0.2,Medical
+flank pain,Non-Critical,0.2,Medical
+what to do for flank pain,Non-Critical,0.2,Medical
+do i need to see a doctor for flank pain,Non-Critical,0.2,Medical
+the outlook for flank pain,Non-Critical,0.2,Medical
+foot pain,Non-Critical,0.2,Medical
+foot pain,Non-Critical,0.2,Medical
+what to do for foot pain,Non-Critical,0.2,Medical
+do i need to see a doctor for foot pain,Non-Critical,0.2,Medical
+the outlook for foot pain,Non-Critical,0.2,Medical
+how to prevent foot pain,Non-Critical,0.2,Medical
+foot pain causes,Non-Critical,0.2,Medical
+groin pain,Non-Critical,0.2,Medical
+groin pain,Non-Critical,0.2,Medical
+what to do for groin pain,Non-Critical,0.2,Medical
+do i need to see a doctor for groin pain,Non-Critical,0.2,Medical
+the outlook for groin pain,Non-Critical,0.2,Medical
+headache,Ambiguous,0.5,Medical
+headache,Ambiguous,0.5,Medical
+what to do for headache,Ambiguous,0.5,Medical
+do i need to see a doctor for headache,Ambiguous,0.5,Medical
+the outlook for headache,Ambiguous,0.5,Medical
+headache what to ask your doctor,Ambiguous,0.5,Medical
+headaches danger signs,Ambiguous,0.5,Medical
+headaches danger signs,Ambiguous,0.5,Medical
+do i need to see a doctor for headaches danger signs,Ambiguous,0.5,Medical
+heel pain,Non-Critical,0.2,Medical
+what to do for heel pain,Non-Critical,0.2,Medical
+do i need to see a doctor for heel pain,Non-Critical,0.2,Medical
+the outlook for heel pain,Non-Critical,0.2,Medical
+how to prevent heel pain,Non-Critical,0.2,Medical
+heel pain and achilles tendonitis aftercare,Non-Critical,0.2,Medical
+heel pain and achilles tendonitis aftercare,Non-Critical,0.2,Medical
+the outlook for heel pain and achilles tendonitis aftercare,Non-Critical,0.2,Medical
+hip pain,Non-Critical,0.2,Medical
+hip pain,Non-Critical,0.2,Medical
+what to do for hip pain,Non-Critical,0.2,Medical
+do i need to see a doctor for hip pain,Non-Critical,0.2,Medical
+the outlook for hip pain,Non-Critical,0.2,Medical
+joint pain,Non-Critical,0.2,Medical
+joint pain,Non-Critical,0.2,Medical
+what to do for joint pain,Non-Critical,0.2,Medical
+do i need to see a doctor for joint pain,Non-Critical,0.2,Medical
+the outlook for joint pain,Non-Critical,0.2,Medical
+knee pain,Non-Critical,0.2,Medical
+knee pain,Non-Critical,0.2,Medical
+what to do for knee pain,Non-Critical,0.2,Medical
+do i need to see a doctor for knee pain,Non-Critical,0.2,Medical
+the outlook for knee pain,Non-Critical,0.2,Medical
+leg pain,Non-Critical,0.2,Medical
+leg pain,Non-Critical,0.2,Medical
+what to do for leg pain,Non-Critical,0.2,Medical
+do i need to see a doctor for leg pain,Non-Critical,0.2,Medical
+the outlook for leg pain,Non-Critical,0.2,Medical
+low back pain acute,Non-Critical,0.2,Medical
+low back pain acute,Non-Critical,0.2,Medical
+the symptoms of low back pain acute,Non-Critical,0.2,Medical
+how to diagnose low back pain acute,Non-Critical,0.2,Medical
+the treatments for low back pain acute,Non-Critical,0.2,Medical
+the outlook for low back pain acute,Non-Critical,0.2,Medical
+do i need to see a doctor for low back pain acute,Non-Critical,0.2,Medical
+how to prevent low back pain acute,Non-Critical,0.2,Medical
+low back pain chronic,Non-Critical,0.2,Medical
+low back pain chronic,Non-Critical,0.2,Medical
+the symptoms of low back pain chronic,Non-Critical,0.2,Medical
+how to diagnose low back pain chronic,Non-Critical,0.2,Medical
+the treatments for low back pain chronic,Non-Critical,0.2,Medical
+the outlook for low back pain chronic,Non-Critical,0.2,Medical
+do i need to see a doctor for low back pain chronic,Non-Critical,0.2,Medical
+managing pain during labor,Non-Critical,0.2,Medical
+managing tension headaches at home,Ambiguous,0.5,Medical
+how to prevent managing tension headaches at home,Ambiguous,0.5,Medical
+do i need to see a doctor for managing tension headaches at home,Ambiguous,0.5,Medical
+managing your chronic back pain,Non-Critical,0.2,Medical
+medications for back pain,Non-Critical,0.2,Medical
+mri and low back pain,Non-Critical,0.2,Medical
+mri and low back pain,Non-Critical,0.2,Medical
+nausea and acupressure,Non-Critical,0.2,Medical
+nausea and vomiting adults,Non-Critical,0.2,Medical
+nausea and vomiting adults,Non-Critical,0.2,Medical
+what to do for nausea and vomiting adults,Non-Critical,0.2,Medical
+do i need to see a doctor for nausea and vomiting adults,Non-Critical,0.2,Medical
+the outlook for nausea and vomiting adults,Non-Critical,0.2,Medical
+neck pain,Non-Critical,0.2,Medical
+what to do for neck pain,Non-Critical,0.2,Medical
+neck pain,Non-Critical,0.2,Medical
+what to do for neck pain,Non-Critical,0.2,Medical
+do i need to see a doctor for neck pain,Non-Critical,0.2,Medical
+the outlook for neck pain,Non-Critical,0.2,Medical
+neck pain or spasms self care,Non-Critical,0.2,Medical
+how to prevent neck pain or spasms self care,Non-Critical,0.2,Medical
+do i need to see a doctor for neck pain or spasms self care,Non-Critical,0.2,Medical
+do you have information about oilbased paint poisoning,Non-Critical,0.2,Medical
+do you have information about overthecounter pain relievers,Non-Critical,0.2,Medical
+pain and your emotions,Non-Critical,0.2,Medical
+pain and your emotions,Non-Critical,0.2,Medical
+pain medications narcotics,Non-Critical,0.2,Medical
+painful menstrual periods,Non-Critical,0.2,Medical
+what to do for painful menstrual periods,Non-Critical,0.2,Medical
+painful menstrual periods,Non-Critical,0.2,Medical
+what to do for painful menstrual periods,Non-Critical,0.2,Medical
+do i need to see a doctor for painful menstrual periods,Non-Critical,0.2,Medical
+the outlook for painful menstrual periods,Non-Critical,0.2,Medical
+painful swallowing,Non-Critical,0.2,Medical
+what to do for painful swallowing,Non-Critical,0.2,Medical
+painful swallowing,Non-Critical,0.2,Medical
+what to do for painful swallowing,Non-Critical,0.2,Medical
+do i need to see a doctor for painful swallowing,Non-Critical,0.2,Medical
+the outlook for painful swallowing,Non-Critical,0.2,Medical
+do you have information about paint lacquer and varnish remover poisoning,Non-Critical,0.2,Medical
+do you have information about palliative care managing pain,Non-Critical,0.2,Medical
+penis pain,Non-Critical,0.2,Medical
+penis pain,Non-Critical,0.2,Medical
+what to do for penis pain,Non-Critical,0.2,Medical
+do i need to see a doctor for penis pain,Non-Critical,0.2,Medical
+the outlook for penis pain,Non-Critical,0.2,Medical
+phantom limb pain,Non-Critical,0.2,Medical
+post surgical pain treatment adults,Non-Critical,0.2,Medical
+q fever,Ambiguous,0.5,Medical
+q fever,Ambiguous,0.5,Medical
+the symptoms of q fever,Ambiguous,0.5,Medical
+how to diagnose q fever,Ambiguous,0.5,Medical
+the treatments for q fever,Ambiguous,0.5,Medical
+the outlook for q fever,Ambiguous,0.5,Medical
+the complications of q fever,Ambiguous,0.5,Medical
+do i need to see a doctor for q fever,Ambiguous,0.5,Medical
+how to prevent q fever,Ambiguous,0.5,Medical
+q fever early,Ambiguous,0.5,Medical
+q fever early,Ambiguous,0.5,Medical
+the symptoms of q fever early,Ambiguous,0.5,Medical
+how to diagnose q fever early,Ambiguous,0.5,Medical
+the treatments for q fever early,Ambiguous,0.5,Medical
+the outlook for q fever early,Ambiguous,0.5,Medical
+the complications of q fever early,Ambiguous,0.5,Medical
+do i need to see a doctor for q fever early,Ambiguous,0.5,Medical
+how to prevent q fever early,Ambiguous,0.5,Medical
+rapid shallow breathing,Non-Critical,0.2,Medical
+rapid shallow breathing,Non-Critical,0.2,Medical
+what to do for rapid shallow breathing,Non-Critical,0.2,Medical
+do i need to see a doctor for rapid shallow breathing,Non-Critical,0.2,Medical
+the outlook for rapid shallow breathing,Non-Critical,0.2,Medical
+ratbite fever,Ambiguous,0.5,Medical
+ratbite fever,Ambiguous,0.5,Medical
+the symptoms of ratbite fever,Ambiguous,0.5,Medical
+how to diagnose ratbite fever,Ambiguous,0.5,Medical
+the treatments for ratbite fever,Ambiguous,0.5,Medical
+the outlook for ratbite fever,Ambiguous,0.5,Medical
+the complications of ratbite fever,Ambiguous,0.5,Medical
+do i need to see a doctor for ratbite fever,Ambiguous,0.5,Medical
+how to prevent ratbite fever,Ambiguous,0.5,Medical
+relapsing fever,Ambiguous,0.5,Medical
+relapsing fever,Ambiguous,0.5,Medical
+the symptoms of relapsing fever,Ambiguous,0.5,Medical
+how to diagnose relapsing fever,Ambiguous,0.5,Medical
+the treatments for relapsing fever,Ambiguous,0.5,Medical
+the outlook for relapsing fever,Ambiguous,0.5,Medical
+the complications of relapsing fever,Ambiguous,0.5,Medical
+do i need to see a doctor for relapsing fever,Ambiguous,0.5,Medical
+how to prevent relapsing fever,Ambiguous,0.5,Medical
+rheumatic fever,Ambiguous,0.5,Medical
+rheumatic fever,Ambiguous,0.5,Medical
+the symptoms of rheumatic fever,Ambiguous,0.5,Medical
+how to diagnose rheumatic fever,Ambiguous,0.5,Medical
+the treatments for rheumatic fever,Ambiguous,0.5,Medical
+the outlook for rheumatic fever,Ambiguous,0.5,Medical
+the complications of rheumatic fever,Ambiguous,0.5,Medical
+do i need to see a doctor for rheumatic fever,Ambiguous,0.5,Medical
+how to prevent rheumatic fever,Ambiguous,0.5,Medical
+ribcage pain,Non-Critical,0.2,Medical
+what to do for ribcage pain,Non-Critical,0.2,Medical
+ribcage pain,Non-Critical,0.2,Medical
+what to do for ribcage pain,Non-Critical,0.2,Medical
+do i need to see a doctor for ribcage pain,Non-Critical,0.2,Medical
+the outlook for ribcage pain,Non-Critical,0.2,Medical
+rocky mountain spotted fever,Ambiguous,0.5,Medical
+rocky mountain spotted fever,Ambiguous,0.5,Medical
+the symptoms of rocky mountain spotted fever,Ambiguous,0.5,Medical
+how to diagnose rocky mountain spotted fever,Ambiguous,0.5,Medical
+the treatments for rocky mountain spotted fever,Ambiguous,0.5,Medical
+the outlook for rocky mountain spotted fever,Ambiguous,0.5,Medical
+the complications of rocky mountain spotted fever,Ambiguous,0.5,Medical
+do i need to see a doctor for rocky mountain spotted fever,Ambiguous,0.5,Medical
+how to prevent rocky mountain spotted fever,Ambiguous,0.5,Medical
+sacroiliac joint pain aftercare,Non-Critical,0.2,Medical
+sacroiliac joint pain aftercare,Non-Critical,0.2,Medical
+the outlook for sacroiliac joint pain aftercare,Non-Critical,0.2,Medical
+do i need to see a doctor for sacroiliac joint pain aftercare,Non-Critical,0.2,Medical
+scarlet fever,Ambiguous,0.5,Medical
+scarlet fever,Ambiguous,0.5,Medical
+the symptoms of scarlet fever,Ambiguous,0.5,Medical
+how to diagnose scarlet fever,Ambiguous,0.5,Medical
+the treatments for scarlet fever,Ambiguous,0.5,Medical
+the outlook for scarlet fever,Ambiguous,0.5,Medical
+the complications of scarlet fever,Ambiguous,0.5,Medical
+do i need to see a doctor for scarlet fever,Ambiguous,0.5,Medical
+how to prevent scarlet fever,Ambiguous,0.5,Medical
