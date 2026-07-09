@@ -94,11 +94,17 @@ class SafeguardEvaluator:
         start_time = time.time()
         
         # Get classification
-        label, confidence = classify_func(query)
+        res = classify_func(query)
+        if isinstance(res, dict):
+            label = res.get("label", "Unknown")
+            confidence = res.get("severity", 0.5)
+        else:
+            label, confidence = res
         classify_time = time.time() - start_time
         
         # Get full safeguard response
-        response = safeguard_func(query)
+        result_obj = safeguard_func(query)
+        response = result_obj.response if hasattr(result_obj, "response") else str(result_obj)
         total_time = time.time() - start_time
         
         # Calculate metrics
