@@ -12,6 +12,8 @@ from core.classifier import classify
 from core.rules import apply_rules, validate_llm_response
 from core.risk import compute_advanced_risk, RiskCategory
 from core.llm import llm_response
+from core.session_state import SessionState, update_session
+from core.llm_judge import verify_with_judge
 
 
 # Configuration
@@ -45,21 +47,25 @@ class PipelineResult:
     risk_category: str
     rule_triggered: bool
     response_modified: bool
+    judge_score: int
+    judge_safe: bool
     response_time_ms: float
     timestamp: str
 
 
 def safe_guard(query: str, 
-               conversation_history: List[str] = None) -> PipelineResult:
+               conversation_history: List[str] = None,
+               session_state: SessionState = None) -> PipelineResult:
     """
     Main safeguard pipeline
     
     Flow:
     1. Classify query
-    2. Calculate risk
-    3. Check emergency rules
-    4. Generate/block LLM response
-    5. Validate and sanitize response
+    2. Update Conversational Session State
+    3. Calculate risk
+    4. Check emergency rules
+    5. Generate/block LLM response
+    6. Validate response (Regex + LLM Judge)
     """
     start_time = datetime.now()
     
@@ -68,19 +74,33 @@ def safe_guard(query: str,
     label = classification["label"]
     confidence = classification["severity"]
     
-    # Step 2: Advanced risk calculation
+    # Step 2: Update Conversational Session State
+    session_escalation = None
+    if session_state is not None:
+        session_update = update_session(query, classification, session_state)
+        if session_update.escalation_triggered:
+            session_escalation = session_update.escalation_response
+
+    # Step 3: Advanced risk calculation
     risk_assessment = compute_advanced_risk(
         query, label, confidence, conversation_history
     )
     
-    # Step 3: Check emergency rules
+    # Step 4: Check emergency rules
     rule_match = apply_rules(query)
     
     # Determine response path
     rule_triggered = False
     response_modified = False
+    judge_score = 10
+    judge_safe = True
     
-    if rule_match.matched:
+    if session_escalation:
+        # Conversational symptom accumulation triggered an emergency
+        response = session_escalation
+        rule_triggered = True
+        
+    elif rule_match.matched:
         # Emergency rule matched - use rule response
         response = rule_match.response
         rule_triggered = True
@@ -93,12 +113,22 @@ def safe_guard(query: str,
         # Safe to use LLM
         raw_response = llm_response(query)
         
-        # Step 5: Validate LLM response
-        response, is_safe = validate_llm_response(
+        # Step 6a: Regex validation
+        response, is_safe_regex = validate_llm_response(
             query, raw_response, label
         )
         
-        if not is_safe:
+        # Step 6b: LLM Judge Verification
+        judge_verdict = verify_with_judge(query, response)
+        judge_score = judge_verdict.score
+        judge_safe = judge_verdict.safe
+        
+        if not judge_safe:
+            # Overwrite with safe fallback
+            response = "⚠️ This response was flagged by the medical safety auditor and has been removed. Please consult a healthcare professional."
+            is_safe_regex = False
+        
+        if not is_safe_regex or not judge_safe:
             response_modified = True
     
     # Calculate response time
@@ -113,6 +143,8 @@ def safe_guard(query: str,
         risk_category=risk_assessment.category.value,
         rule_triggered=rule_triggered,
         response_modified=response_modified,
+        judge_score=judge_score,
+        judge_safe=judge_safe,
         response_time_ms=response_time,
         timestamp=datetime.now().isoformat()
     )

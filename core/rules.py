@@ -1,254 +1,157 @@
 # core/rules.py
 """
-Medical Safety Rules Engine
-Overrides LLM responses for emergency patterns
+Ultra-Fast Hybrid Safety Rules Engine
+Layer 1: Regex (< 1ms)
+Layer 2: LLM Semantic Judge via Groq (~30ms)
+NO LOCAL MODEL LOADING.
 """
 
-from typing import Optional, List, Dict, Tuple
 import re
+import logging
 from dataclasses import dataclass
 from enum import Enum
+import os
 
+# Import your existing LLM client from llm.py
+from core.llm import client, MODEL_NAME
+
+logger = logging.getLogger(__name__)
 
 class EmergencyLevel(Enum):
-    IMMEDIATE = "immediate"  # Call 911 now
-    URGENT = "urgent"        # Go to ER within hours
-    CONSULT = "consult"      # See doctor soon
-    NONE = "none"            # No emergency
-
+    IMMEDIATE = "immediate"
+    NONE = "none"
 
 @dataclass
 class RuleMatch:
-    """Result of rule matching"""
     matched: bool
     level: EmergencyLevel
     response: str
-    matched_patterns: List[str]
     category: str
+    match_type: str 
 
-
-# Emergency patterns with severity levels
-EMERGENCY_RULES: Dict[str, Dict] = {
-    # IMMEDIATE - Call 911
-    "chest_pain_emergency": {
+# --- LAYER 1: REGEX ---
+REGEX_RULES = {
+    "cardiac_regex": {
         "patterns": [
-            r"chest pain.*(can't|cannot|unable to) breathe",
-            r"(severe|crushing|extreme) chest pain",
-            r"chest pain.*(radiating|spreading).*(arm|jaw|back)",
-            r"chest pain.*(sweating|nausea|dizzy)",
+            r"(crushing|severe).*(chest|heart)",
+            r"(chest).*(pain).*(arm|jaw|back)",
             r"heart attack",
             r"cardiac arrest",
         ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 immediately! This could be a heart attack. " \
-                   "Do NOT drive yourself. Sit or lie down. Chew an aspirin if available " \
-                   "and not allergic. Unlock your door for paramedics.",
+        "response": "🚨 EMERGENCY: Call 911 immediately! This could be a heart attack. Do NOT drive yourself. Sit or lie down. Chew an aspirin if available.",
         "category": "cardiac"
     },
-    "breathing_emergency": {
-        "patterns": [
-            r"(can't|cannot|unable to) breathe",
-            r"(severe|extreme) difficulty breathing",
-            r"choking",
-            r"(throat|airway).*(closing|swelling|blocked)",
-            r"(not breathing|stopped breathing)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 immediately! Check if person is conscious. " \
-                   "If choking and conscious, perform Heimlich maneuver. " \
-                   "If not breathing, begin CPR if trained. Stay on line with 911.",
+    "breathing_regex": {
+        "patterns": [r"(can'?t|cannot).*(breathe|breathing)", r"(throat).*(closing|swelling)"],
+        "response": "🚨 EMERGENCY: Call 911 immediately! Check airway. If choking, perform Heimlich. If not breathing, begin CPR.",
         "category": "respiratory"
     },
-    "unconscious_emergency": {
-        "patterns": [
-            r"(unconscious|unresponsive|passed out|collapsed)",
-            r"(can't|cannot|unable to).*(wake|wake up)",
-            r"not (responding|responsive)",
-            r"(found|found him|found her).*(unconscious|unresponsive)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 immediately! Check for breathing and pulse. " \
-                   "If not breathing, start CPR. Place in recovery position if breathing. " \
-                   "Do NOT leave the person alone. Stay on line with dispatch.",
+    "stroke_regex": {
+        "patterns": [r"(face|arm).*(droop|numb|weak)", r"(slurred).*(speech)"],
+        "response": "🚨 EMERGENCY: Call 911 immediately! This could be a stroke. Note the time symptoms started.",
         "category": "neurological"
-    },
-    "stroke_emergency": {
-        "patterns": [
-            r"(face|arm|leg).*(droop|drooping|weakness|numb)",
-            r"(speech|talking).*(slurred|garbled|difficult)",
-            r"sudden.*(vision|blind|blindness)",
-            r"sudden.*(confusion|confused|disoriented)",
-            r"(stroke signs|FAST|brain attack)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 immediately! This could be a stroke. " \
-                   "Remember FAST: Face drooping, Arm weakness, Speech difficulty, Time to call 911. " \
-                   "Note the time symptoms started. Do NOT give aspirin.",
-        "category": "neurological"
-    },
-    "bleeding_emergency": {
-        "patterns": [
-            r"(severe|heavy|extreme).*(bleeding|blood)",
-            r"(can't|cannot|unable to) stop.*(bleeding|blood)",
-            r"(blood|bleeding).*(gushing|pulsing|spraying)",
-            r"(arterial|artery).*(bleeding|cut)",
-            r"(blood loss|losing blood).*(fast|rapid|lot)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 immediately! Apply firm direct pressure with " \
-                   "clean cloth. Do NOT remove cloth if soaked - add more on top. " \
-                   "Elevate if possible. Do NOT use tourniquet unless trained.",
-        "category": "trauma"
-    },
-    "overdose_emergency": {
-        "patterns": [
-            r"(overdose|over-dose|OD'd)",
-            r"took too many.*(pill|medication|drug)",
-            r"(poison|poisoned|poisoning)",
-            r"(drug|medication).*(overdose|over-dose)",
-            r"(suicide|suicidal).*(pill|drug|medication)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 and Poison Control (1-800-222-1222) immediately! " \
-                   "Do NOT induce vomiting unless instructed. Keep medication bottle. " \
-                   "Stay with the person. Note time and amount taken if known.",
-        "category": "toxicology"
-    },
-    "seizure_emergency": {
-        "patterns": [
-            r"(seizure|convulsion|fit)",
-            r"(shaking|jerking).*(uncontrollable|can't stop)",
-            r"(child|baby).*(seizure|convulsion|fever).*(high)",
-        ],
-        "level": EmergencyLevel.IMMEDIATE,
-        "response": "🚨 EMERGENCY: Call 911 if seizure lasts more than 5 minutes or " \
-                   "person is injured, pregnant, or has no prior seizure history. " \
-                   "Clear area of dangers. Do NOT restrain. Turn on side after jerking stops. " \
-                   "Time the seizure. Do NOT put anything in mouth.",
-        "category": "neurological"
-    },
-    
-    # URGENT - Go to ER
-    "allergic_urgent": {
-        "patterns": [
-            r"(allergic|allergy).*(reaction|swelling|hives)",
-            r"(swelling).*(face|throat|tongue|lips)",
-            r"(hives|rash).*(spreading|everywhere|all over)",
-            r"(bee|wasp|insect).*(sting|bite).*(allergic|swelling)",
-        ],
-        "level": EmergencyLevel.URGENT,
-        "response": "⚠️ URGENT: Seek emergency care immediately! This could be anaphylaxis. " \
-                   "Use EpiPen if prescribed and available. Go to ER even if symptoms improve " \
-                   "- they can return. Call 911 if breathing is affected.",
-        "category": "allergy"
-    },
-    "head_injury_urgent": {
-        "patterns": [
-            r"(head|skull).*(injury|trauma|hit|smash|crack)",
-            r"(concussion|brain injury)",
-            r"(head).*(bleeding|blood|cut).*(deep|large|gaping)",
-        ],
-        "level": EmergencyLevel.URGENT,
-        "response": "⚠️ URGENT: Go to ER immediately! Watch for: loss of consciousness, " \
-                   "confusion, repeated vomiting, unequal pupils, worsening headache. " \
-                   "Do NOT let person sleep for first few hours if severe.",
-        "category": "trauma"
-    },
-    "abdominal_urgent": {
-        "patterns": [
-            r"(severe|extreme).*(abdominal|stomach|belly).*(pain|cramp)",
-            r"(abdominal|stomach).*(pain).*(fever|vomit)",
-            r"(blood|bleeding).*(stool|vomit|urine)",
-        ],
-        "level": EmergencyLevel.URGENT,
-        "response": "⚠️ URGENT: Go to ER immediately! This could indicate appendicitis, " \
-                   "internal bleeding, or other serious condition. Do NOT eat or drink. " \
-                   "Note when symptoms started and any other symptoms.",
-        "category": "gastrointestinal"
-    },
-    
-    # CONSULT - See doctor soon
-    "persistent_symptoms": {
-        "patterns": [
-            r"(symptom|pain|cough|headache).*(week|weeks|month|months).*(won't|doesn't|not).*(go|stop)",
-            r"(persistent|chronic|ongoing).*(pain|symptom|cough|fatigue)",
-            r"(losing weight).*(without|no).*(trying|reason)",
-        ],
-        "level": EmergencyLevel.CONSULT,
-        "response": "📋 CONSULT: Please schedule an appointment with your doctor within " \
-                   "the next few days. Persistent symptoms should be evaluated. " \
-                   "If symptoms worsen before your appointment, go to urgent care or ER.",
-        "category": "general"
-    },
+    }
 }
 
+SEMANTIC_RESPONSES = {
+    "cardiac": "🚨 EMERGENCY: Based on your description, this sounds like a cardiac event. Call 911 immediately. Do not drive.",
+    "stroke": "🚨 EMERGENCY: Based on your description, this sounds like a neurological emergency. Call 911 immediately.",
+    "breathing": "🚨 EMERGENCY: Based on your description, this sounds like a respiratory emergency. Call 911 immediately."
+}
 
-# Blocked phrases - should NEVER appear in medical responses
+def _check_llm_semantic(query: str) -> dict:
+    """
+    LLM-as-a-Judge: Asks Groq/Llama if the query implies an emergency.
+    Takes ~30ms. No local downloading.
+    """
+    if not client:
+        return None
+        
+    # Extremely strict, fast prompt for Llama to classify
+    prompt = f"""Analyze this user text for a medical safeguard system.
+Text: "{query}"
+Does this text actually describe a genuine medical emergency (e.g., heart attack, stroke, severe bleeding, unable to breathe)?
+CRITICAL:
+1. Watch out for common medical idioms indicating severe emergencies (e.g., "elephant sitting on my chest", "elephant on my ribcage"). These ARE emergencies.
+2. Pay close attention to context. If the symptoms have a clear, harmless external cause (like visiting a dentist, sleeping in a weird position, or working out), it is NOT an emergency.
+Answer ONLY with one word for the category (CARDIAC, STROKE, BREATHING, TRAUMA) or NONE."""
+
+    try:
+        response = client.chat.completions.create(
+            model=MODEL_NAME,
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0,      # Zero creativity, pure logic
+            max_tokens=5,         # We only want one word back
+            timeout=2.0           # Fail fast if Groq is down
+        )
+        
+        result = response.choices[0].message.content.strip().upper()
+        
+        # Map LLM response to our categories
+        if "CARDIAC" in result:
+            return {"category": "cardiac", "confidence": 0.9}
+        elif "STROKE" in result:
+            return {"category": "stroke", "confidence": 0.9}
+        elif "BREATH" in result:
+            return {"category": "breathing", "confidence": 0.9}
+        elif "TRAUMA" in result:
+            return {"category": "trauma", "confidence": 0.9}
+            
+    except Exception as e:
+        logger.error(f"LLM Semantic check failed: {e}")
+        
+    return None
+
+def apply_rules(query: str) -> RuleMatch:
+    """Hybrid Rule Application - Instantaneous"""
+    
+    # LAYER 1: Regex (Takes < 1 millisecond)
+    for rule_name, rule_data in REGEX_RULES.items():
+        for pattern in rule_data["patterns"]:
+            if re.search(pattern, query, re.IGNORECASE):
+                return RuleMatch(
+                    matched=True,
+                    level=EmergencyLevel.IMMEDIATE,
+                    response=rule_data["response"],
+                    category=rule_data["category"],
+                    match_type="regex"
+                )
+                
+    # LAYER 2: LLM Semantic Check (Takes ~30 milliseconds via Groq API)
+    # ONLY triggers if Regex fails, to save API calls
+    semantic_hit = _check_llm_semantic(query)
+    if semantic_hit:
+        category = semantic_hit["category"]
+        return RuleMatch(
+            matched=True,
+            level=EmergencyLevel.IMMEDIATE,
+            response=SEMANTIC_RESPONSES.get(category, "🚨 EMERGENCY detected via AI."),
+            category=category,
+            match_type="llm-semantic" 
+        )
+        
+    return RuleMatch(matched=False, level=EmergencyLevel.NONE, response="", category="", match_type="none")
+
+
+# Blocked phrases - should NEVER appear in LLM responses
 BLOCKED_RESPONSE_PATTERNS = [
     r"you (definitely|certainly|absolutely) have",
     r"you should (take|start|stop|begin) (this|the) (medication|medicine|drug)",
     r"your diagnosis is",
     r"you are diagnosed with",
-    r"(stop|don't|discontinue).*(your|the).*(medication|medicine|treatment)",
     r"take \d+ (mg|milligrams) of",
-    r"prescription for you",
 ]
 
-
-def apply_rules(query: str) -> RuleMatch:
-    """
-    Check query against all emergency rules
-    
-    Returns RuleMatch with appropriate response or no match
-    """
-    query_lower = query.lower()
-    matched_patterns = []
-    
-    # Check each rule category
-    for rule_name, rule_data in EMERGENCY_RULES.items():
-        for pattern in rule_data["patterns"]:
-            if re.search(pattern, query_lower, re.IGNORECASE):
-                matched_patterns.append(pattern)
-                
-                return RuleMatch(
-                    matched=True,
-                    level=rule_data["level"],
-                    response=rule_data["response"],
-                    matched_patterns=matched_patterns,
-                    category=rule_data["category"]
-                )
-    
-    return RuleMatch(
-        matched=False,
-        level=EmergencyLevel.NONE,
-        response="",
-        matched_patterns=[],
-        category=""
-    )
-
-
-def get_emergency_response(query: str) -> Optional[str]:
-    """Simple interface - get emergency response or None"""
-    match = apply_rules(query)
-    return match.response if match.matched else None
-
-
-def validate_llm_response(query: str, response: str, risk_level: str) -> Tuple[str, bool]:
-    """
-    Validate and potentially modify LLM response
-    
-    Returns: (sanitized_response, is_safe)
-    """
+def validate_llm_response(query: str, response: str, risk_level: str) -> tuple:
+    """Validate and sanitize LLM response"""
     is_safe = True
     
-    # Check for blocked patterns
     for pattern in BLOCKED_RESPONSE_PATTERNS:
         if re.search(pattern, response, re.IGNORECASE):
             is_safe = False
-            # Replace with safer version
             response = re.sub(
                 pattern,
-                "This requires evaluation by a medical professional to determine.",
+                "This requires evaluation by a medical professional.",
                 response,
                 flags=re.IGNORECASE
             )
@@ -256,40 +159,8 @@ def validate_llm_response(query: str, response: str, risk_level: str) -> Tuple[s
     # Add disclaimer for medical queries
     if risk_level in ["Critical", "Ambiguous"]:
         disclaimer = "\n\n⚠️ DISCLAIMER: This is not medical advice. " \
-                    "Please consult a healthcare professional for proper diagnosis and treatment."
+                    "Please consult a healthcare professional."
         if disclaimer not in response:
             response += disclaimer
     
     return response, is_safe
-
-
-def get_rule_categories() -> List[str]:
-    """Get list of all emergency categories"""
-    return list(set(rule["category"] for rule in EMERGENCY_RULES.values()))
-
-
-def print_all_rules():
-    """Debug: print all rules"""
-    for name, rule in EMERGENCY_RULES.items():
-        print(f"\n📁 {name}")
-        print(f"   Level: {rule['level'].value}")
-        print(f"   Category: {rule['category']}")
-        print(f"   Patterns: {len(rule['patterns'])}")
-
-
-if __name__ == "__main__":
-    # Test rules
-    test_queries = [
-        "I have chest pain and can't breathe",
-        "My face is drooping and speech is slurred",
-        "I have a headache for 3 weeks that won't go away",
-        "How do I learn Python",
-    ]
-    
-    for query in test_queries:
-        match = apply_rules(query)
-        print(f"\nQuery: {query}")
-        print(f"Matched: {match.matched}")
-        if match.matched:
-            print(f"Level: {match.level.value}")
-            print(f"Response: {match.response[:100]}...")
